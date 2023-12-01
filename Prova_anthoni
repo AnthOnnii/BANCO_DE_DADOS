@@ -1,0 +1,45 @@
+CREATE DATABASE prova_anthoni;
+
+use prova_anthoni; 
+
+CREATE TABLE pessoa(
+
+id int (11) primary key not null auto_increment,
+nome varchar(4000) not null
+); 
+
+SET SQL_MODE='';
+SET SQL_MODE='STRICT_ALL_TABLES';
+
+SELECT count(*) FROM pessoa;
+
+SELECT id, nome FROM pessoa WHERE id = '2';
+
+SELECT count(*) FROM pessoa WHERE nome = 'LUCIANE TERRA DOS SANTOS GARCIA';
+
+UPDATE pessoa SET nome = 'ANTHIONI VINICIUS KALOBISKI CARDOSO' WHERE id = '2';
+UPDATE pessoa SET nome = 'ANTHIONI VINICIUS KALOBISKI CARDOSO' WHERE id = '20';
+UPDATE pessoa SET nome = 'ANTHIONI VINICIUS KALOBISKI CARDOSO' WHERE id = '200';
+
+    
+    
+CREATE TABLE unidade_requisitante (
+  id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  unidade VARCHAR(500) NOT NULL UNIQUE
+);
+
+alter table unidade_requisitante add column fk_pessoa int(11);
+
+alter table unidade_requisitante add constraint id_fk_pessoa
+foreign key(id) references pessoa (id);
+
+select p.id, p.nome, ur.fk_pessoa, ur.id, ur.unidade from pessoa p
+inner join unidade_requisitante ur
+on p.id = ur.fk_pessoa limit 100;
+
+select p.id, p.nome, ur.fk_pessoa, ur.id, ur.unidade from pessoa p
+inner join unidade_requisitante ur
+on p.id = ur.fk_pessoa WHERE p.id in (2, 20, 200);
+
+
+DROP TABLE unidade_requisitante;
